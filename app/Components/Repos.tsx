@@ -1,8 +1,8 @@
 "use client";
 import { Spinner } from "@gluestack-ui/themed";
 import { useSearchParams } from "next/navigation";
-import styles from "./page.module.css";
-import { format_date } from "./utils_functions";
+import { format_date } from "../functions/utils_functions";
+import styles from "../page.module.css";
 
 type Props = {
   isSendingGetDataRequest: any;

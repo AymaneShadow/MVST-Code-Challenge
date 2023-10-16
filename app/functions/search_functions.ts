@@ -1,5 +1,3 @@
-// Search
-
 export function search(
   searchValue: string,
   reposData: any[],

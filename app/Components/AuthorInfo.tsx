@@ -1,6 +1,6 @@
 "use client";
 import { Image } from "@gluestack-ui/themed";
-import styles from "./page.module.css";
+import styles from "../page.module.css";
 
 type Props = {
   userData: any;

@@ -14,8 +14,8 @@ import {
 } from "@gluestack-ui/themed";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { getData } from "./backend_functions";
-import styles from "./page.module.css";
+import { getData } from "../functions/backend_functions";
+import styles from "../page.module.css";
 
 type Props = {
   setUserData: React.Dispatch<React.SetStateAction<any>>;

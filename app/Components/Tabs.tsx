@@ -1,6 +1,6 @@
 "use client";
 import { Spinner } from "@gluestack-ui/themed";
-import styles from "./page.module.css";
+import styles from "../page.module.css";
 
 type Props = {
   reposData: any[];

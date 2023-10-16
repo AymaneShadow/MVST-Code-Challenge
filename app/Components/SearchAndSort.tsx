@@ -23,9 +23,9 @@ import {
   SelectTrigger,
 } from "@gluestack-ui/themed";
 import { useState } from "react";
-import styles from "./page.module.css";
-import { search } from "./search_functions";
-import { sortByLanguage, sortRepos } from "./sort_functions";
+import { search } from "../functions/search_functions";
+import { sortByLanguage, sortRepos } from "../functions/sort_functions";
+import styles from "../page.module.css";
 
 type Props = {
   reposData: any;

@@ -3,12 +3,12 @@ import { config } from "@gluestack-ui/config";
 import { GluestackUIProvider, Spinner } from "@gluestack-ui/themed";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { AuthorInfo } from "./AuthorInfo";
-import { Header } from "./Header";
-import { Repos } from "./Repos";
-import { SearchAndSort } from "./SearchAndSort";
-import { Tabs } from "./Tabs";
-import { getData } from "./backend_functions";
+import { AuthorInfo } from "./Components/AuthorInfo";
+import { Header } from "./Components/Header";
+import { Repos } from "./Components/Repos";
+import { SearchAndSort } from "./Components/SearchAndSort";
+import { Tabs } from "./Components/Tabs";
+import { getData } from "./functions/backend_functions";
 import styles from "./page.module.css";
 
 export default function Home() {
