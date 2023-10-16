@@ -1,3 +1,4 @@
+// Search the repositories using the provided search criteria
 export function search(
   searchValue: string,
   reposData: any[],
@@ -19,6 +20,8 @@ export function search(
   }
 }
 
+// The provided search criteria, in this case they are the name
+// and the primary language of the repository
 export function searchCriteria(repo: any, searchValue: string) {
   if (repo)
     return (

@@ -1,3 +1,4 @@
+// Sort the repositories by name or updated date
 export const sortRepos = (
   value: string,
   reposData: any[],
@@ -12,9 +13,6 @@ export const sortRepos = (
     const condition1 =
       new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
     const condition2 = a.name.localeCompare(b.name);
-    const condition3 = a.primaryLanguage?.name.localeCompare(
-      b.primaryLanguage?.name
-    );
 
     return value === "updated" ? condition1 : condition2;
   });
@@ -22,6 +20,7 @@ export const sortRepos = (
   endSortRepos(sortedElements);
 };
 
+// Sort the repositories by language
 export const sortByLanguage = (
   value: string,
   reposData: any[],

@@ -30,6 +30,7 @@ type Props = {
   endGetData: () => void;
 };
 
+// This component is responsible for rendering the header
 export const Header = (props: Props) => {
   const {
     setUserData,
@@ -40,6 +41,7 @@ export const Header = (props: Props) => {
     endGetData,
   } = props;
 
+  // URL Params
   const router = useRouter();
   const urlParams = useSearchParams();
   const usernameFromURL = urlParams.get("username");

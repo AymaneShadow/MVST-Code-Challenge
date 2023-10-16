@@ -6,6 +6,7 @@ type Props = {
   userData: any;
 };
 
+// This component is responsible for rendering the author info
 export const AuthorInfo = (props: Props) => {
   const { userData } = props;
 

@@ -35,6 +35,7 @@ type Props = {
   setReposDataFiltered: any;
 };
 
+// This component is responsible for rendering the search and sort inputs
 export const SearchAndSort = (props: Props) => {
   const {
     reposData,
@@ -44,15 +45,16 @@ export const SearchAndSort = (props: Props) => {
     setReposDataFiltered,
   } = props;
 
-  const [searchRepoNameValue, setSearchRepoNameValue] = useState("");
+  // Search and sort data
+  const [searchValue, setSearchRepoNameValue] = useState("");
   const [sortBy, setSortBy] = useState("");
   const [sortLanguage, setSortLanguage] = useState("");
 
   // Called before searching repositories
-  const startSearch = (searchRepoNameValue: string) => {
+  const startSearch = (searchValue: string) => {
     setSortBy("");
     setSortLanguage("");
-    setSearchRepoNameValue(searchRepoNameValue);
+    setSearchRepoNameValue(searchValue);
     setIsRepoDataFiltered(true);
   };
 
@@ -102,7 +104,7 @@ export const SearchAndSort = (props: Props) => {
         <InputField
           style={{ color: "white" }}
           placeholder="Find a repository..."
-          value={searchRepoNameValue}
+          value={searchValue}
           onChange={(e: any) =>
             search(e.target.value, reposData, startSearch, endSearch)
           }

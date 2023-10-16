@@ -12,6 +12,7 @@ type Props = {
   isRepoDataFiltered: any;
 };
 
+// This component is responsible for rendering the repositories
 export const Repos = (props: Props) => {
   const {
     isSendingGetDataRequest,

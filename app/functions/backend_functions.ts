@@ -1,7 +1,10 @@
 import axios from "axios";
 
+// Header required to connect to GitHub GraphQL
 const authHeader = "bearer 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";
 
+// Function to get data from GitHub GraphQL
+// Optimized to fetch all data needed in one request
 export const getData = async (
   usernameFromURL: string | null,
   startGetData: () => void,
@@ -26,7 +29,7 @@ export const getData = async (
 
   startGetData();
 
-  // GET request for remote image in node.js
+  // POST request to get data from GitHub GraphQL API
   axios({
     method: "post",
     url: "https://api.github.com/graphql",
@@ -37,6 +40,7 @@ export const getData = async (
     },
   })
     .then(function (response) {
+      // Adapt data to be used in the app
       const reposData = response.data.data.user.repositories.nodes;
       const userData = {
         name: response.data.data.user.name,

@@ -7,6 +7,7 @@ type Props = {
   isSendingGetDataRequest: boolean;
 };
 
+// This component is responsible for rendering the tabs, in this case the repositories tab
 export const Tabs = (props: Props) => {
   const { reposData, isSendingGetDataRequest } = props;
 
