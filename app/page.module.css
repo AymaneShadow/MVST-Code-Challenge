@@ -4,6 +4,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   min-height: 100vh;
+  /* background-color: cadetblue; */
 }
 
 .header {
@@ -16,7 +17,7 @@
   z-index: 2;
   font-family: var(--font-mono);
   background-color: #1c2128;
-  min-height: 32px;
+  height: 64px;
   padding-top: 16px;
   padding-left: 16px;
   padding-right: 16px;
@@ -109,9 +110,9 @@
   z-index: 2;
   font-family: var(--font-mono);
   background-color: #22272e;
-  min-height: 100vh;
   padding-left: 32px;
   padding-right: 32px;
+  min-height: calc(100vh - 64px - 48px);
 }
 
 .mainContentLeft {
@@ -124,7 +125,7 @@
   z-index: 2;
   font-family: var(--font-mono);
   /* background-color: cornflowerblue; */
-  min-height: 100vh;
+  min-height: calc(100vh - 64px - 48px);
   padding-top: 32px;
   padding-left: 16px;
   padding-right: 16px;
@@ -170,12 +171,13 @@
   display: inherit;
   justify-content: inherit;
   align-items: inherit;
+  flex-direction: column;
   font-size: 0.85rem;
   width: 100%;
   z-index: 2;
   font-family: var(--font-mono);
   /* background-color: darkgreen; */
-  min-height: 100vh;
+  min-height: calc(100vh - 64px - 48px);
   margin-left: 32px;
 }
 
@@ -183,6 +185,8 @@
   display: inherit;
   justify-content: inherit;
   align-items: center;
+  flex-direction: row;
+  gap: 20px;
   font-size: 0.85rem;
   z-index: 2;
   font-family: var(--font-mono);
@@ -193,4 +197,77 @@
   padding-bottom: 16px;
   border-bottom: 1px solid;
   border-bottom-color: #797369;
+}
+
+.repos {
+  display: inherit;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  flex: 1;
+  font-size: 0.85rem;
+  z-index: 2;
+  font-family: var(--font-mono);
+  /* background-color: deeppink; */
+  /* height: 65px; */
+  width: 100%;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.repo {
+  display: inherit;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  z-index: 2;
+  font-family: var(--font-mono);
+  width: 100%;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid;
+  border-bottom-color: #373e47;
+}
+
+.repo .repoDetails {
+  display: inherit;
+  flex-direction: row;
+  width: 100%;
+  gap: 40px;
+}
+
+.repo .repoTitle {
+  font-size: 1.5rem;
+  font-family: var(--font-mono);
+  color: #539bf5;
+  text-decoration: underline;
+}
+
+.repo .repoDescription {
+  padding-top: 20px;
+  font-size: 1rem;
+  font-family: var(--font-mono);
+  color: white;
+}
+
+.repo .repoPrimaryLanguage {
+  padding-top: 20px;
+  font-size: 1rem;
+  font-family: var(--font-mono);
+  color: #768390;
+}
+
+.repo .repoLastUpdated {
+  padding-top: 20px;
+  font-size: 1rem;
+  font-family: var(--font-mono);
+  color: #768390;
+}
+
+.spinner {
+  display: inherit;
+  justify-content: center;
+  /* background-color: deeppink; */
+  /* min-height: 80vh; */
+  flex: 1;
 }
