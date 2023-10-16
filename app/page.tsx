@@ -4,13 +4,18 @@ import {
   Button,
   ButtonIcon,
   ButtonText,
+  CheckIcon,
   ChevronDownIcon,
+  CloseIcon,
+  EditIcon,
   GluestackUIProvider,
   Icon,
+  Image,
   Input,
   InputField,
   InputIcon,
   InputSlot,
+  Pressable,
   RepeatIcon,
   SearchIcon,
   Select,
@@ -26,68 +31,51 @@ import {
   Spinner,
 } from "@gluestack-ui/themed";
 import axios from "axios";
-import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import imgAuthor from "./10123098.jpg";
 import styles from "./page.module.css";
 
 export default function Home() {
+  const searchParams = useSearchParams();
+  const usernameFromURL = searchParams.get("username");
+  const router = useRouter();
+
   const [searchValue, setSearchValue] = useState("");
 
-  // House REQUESTS TO BACKEND
-  const [isSendingGetReposRequest, setIsSendingGetReposRequest] =
-    useState(false);
-  const [
-    isSendingGetReposRequestSuccessful,
-    setIsSendingGetReposRequestSuccessful,
-  ] = useState(false);
-  // const [getReposRequestResponseMessage, setGetReposRequestResponseMessage] =
-  //   useState(false);
   const [reposData, setReposData] = useState([]);
   const [reposLanguages, setReposLanguages] = useState<any[]>([]);
+
+  const [isSendingGetDataRequest, setIsSendingGetDataRequest] = useState(true);
+  const [
+    isSendingGetDataRequestSuccessful,
+    setIsSendingGetDataRequestSuccessful,
+  ] = useState(false);
+  // const [getUserRequestResponseMessage, setGetUserRequestResponseMessage] =
+  //   useState(false);
+  const [userData, setUserData] = useState<any>({});
 
   const [entityDataFiltered, setEntityDataFiltered] = useState<any>([]);
   const [isEntityDataFiltered, setIsEntityDataFiltered] = useState(false);
 
-  const [sortBy, setSortBy] = useState("updated");
+  const [sortBy, setSortBy] = useState("");
+  const [sortLanguage, setSortLanguage] = useState("");
 
-  const getGithubRepos = async () => {
-    console.log("getting repos...");
+  const [isUsernameBeingEdited, setIsUsernameBeingEdited] = useState(false);
+  const [username, setUsername] = useState("");
+
+  const getData = async () => {
+    console.log("getting data...");
 
     const authHeader = "bearer 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";
-    const query =
-      "{ \
-        viewer { \
-          repositories(first: 100) { \
-            pageInfo { \
-              hasPreviousPage \
-              hasNextPage \
-              startCursor \
-              endCursor \
-            } \
-            nodes { \
-              name, \
-              primaryLanguage { \
-                name \
-              } \
-              updatedAt, \
-              url, \
-              description \
-            } \
-          } \
-        } \
-      }";
 
-    const fullQuery =
-      ' \
-    { \
-      "query": "' +
-      query +
-      '" \
-    } \
-    ';
+    const fullQuery = {
+      query:
+        '{ user(login: "' +
+        usernameFromURL +
+        '") { id name avatarUrl login bio repositories(first: 100) { pageInfo { hasPreviousPage hasNextPage startCursor endCursor } nodes { name primaryLanguage { name } updatedAt url description } } }}',
+    };
 
-    setIsSendingGetReposRequest(true);
+    setIsSendingGetDataRequest(true);
 
     // GET request for remote image in node.js
     axios({
@@ -100,18 +88,23 @@ export default function Home() {
       },
     })
       .then(function (response) {
-        setIsSendingGetReposRequestSuccessful(true);
-        const responseData = response.data.data.viewer.repositories.nodes;
-        console.log("responseData", response.data.data);
-
-        setReposData(responseData);
+        setIsSendingGetDataRequestSuccessful(true);
+        const reposData = response.data.data.user.repositories.nodes;
+        const userData = {
+          name: response.data.data.user.name,
+          login: response.data.data.user.login,
+          avatarUrl: response.data.data.user.avatarUrl,
+          bio: response.data.data.user.bio,
+        };
+        console.log("reposData", reposData);
+        console.log("userData", userData);
 
         let tempLanguagesData: any[] = [];
 
-        responseData.forEach((repo: any) => {
+        reposData.forEach((repo: any) => {
           let languageExists = false;
           tempLanguagesData.map((language) => {
-            if (language === repo.primaryLanguage?.name) {
+            if (language === (repo.primaryLanguage?.name ?? "None")) {
               languageExists = true;
             }
           });
@@ -122,22 +115,25 @@ export default function Home() {
         console.log("tempLanguagesData", tempLanguagesData);
 
         setReposLanguages(tempLanguagesData);
+        setUserData(userData);
+        setReposData(reposData);
       })
       .catch(function (error) {
-        setIsSendingGetReposRequestSuccessful(false);
+        setIsSendingGetDataRequestSuccessful(false);
 
         // handle error
         console.log(error.response);
       })
       .finally(() => {
-        setIsSendingGetReposRequest(false);
+        setIsSendingGetDataRequest(false);
       });
   };
 
   // Search
   function search(searchValue: string) {
+    setSortBy("");
+    setSortLanguage("");
     setSearchValue(searchValue);
-
     setIsEntityDataFiltered(true);
 
     if (searchValue) {
@@ -174,7 +170,11 @@ export default function Home() {
   };
 
   const sortRepos = (value: string) => {
-    setIsEntityDataFiltered(false);
+    setSortLanguage("");
+    setSearchValue("");
+
+    setIsEntityDataFiltered(true);
+    setSortBy(value[0].toUpperCase() + value.substring(1));
 
     let sortedElements = [...reposData];
 
@@ -189,18 +189,21 @@ export default function Home() {
       return value === "updated" ? condition1 : condition2;
     });
 
-    setReposData(sortedElements);
+    setEntityDataFiltered(sortedElements);
   };
 
   const sortByLanguage = (value: string) => {
+    setSortBy("");
+    setSearchValue("");
+    setSortLanguage(value);
+
     let sortedElements = [...reposData];
 
     sortedElements = sortedElements.filter((repo: any) => {
-      console.log("value", repo.primaryLanguage?.name.toLowerCase());
-      console.log("value", value);
-
-      if ((repo.primaryLanguage?.name ?? "none").toLowerCase() === value) {
-        console.log("true");
+      if (
+        (repo.primaryLanguage?.name ?? "none").toLowerCase() ===
+        value.toLowerCase()
+      ) {
         return repo;
       }
     });
@@ -211,17 +214,60 @@ export default function Home() {
     setEntityDataFiltered(sortedElements);
   };
 
+  const editUsername = (value: string) => {
+    setUsername(value);
+    router.replace("?username=" + value);
+  };
+
   useEffect(() => {
-    getGithubRepos();
+    getData();
   }, []);
 
   return (
     <GluestackUIProvider config={config}>
       <main className={styles.main}>
         <div className={styles.header}>
-          <div className={styles.tag}>
-            <p>AymaneShadow</p>
-          </div>
+          {isUsernameBeingEdited ? (
+            <div className={styles.editUsername}>
+              <Input>
+                <InputSlot pl="$3">
+                  <InputIcon as={EditIcon} />
+                </InputSlot>
+                <InputField
+                  style={{ color: "white" }}
+                  placeholder={usernameFromURL}
+                  value={username}
+                  onChange={(e: any) => editUsername(e.target.value)}
+                />
+              </Input>
+              <Button
+                size="md"
+                variant="solid"
+                action="primary"
+                isDisabled={false}
+                isFocusVisible={false}
+                onPress={() => {
+                  setIsUsernameBeingEdited(false);
+                  setUserData({});
+                  setReposData([]);
+                  getData();
+                }}
+              >
+                <ButtonText>Done </ButtonText>
+                <ButtonIcon as={CheckIcon} />
+              </Button>
+            </div>
+          ) : (
+            <div className={styles.tag}>
+              <Pressable
+                onPress={() => {
+                  setIsUsernameBeingEdited(true);
+                }}
+              >
+                <p>{usernameFromURL}</p>
+              </Pressable>
+            </div>
+          )}
           <Button
             size="md"
             variant="solid"
@@ -229,10 +275,10 @@ export default function Home() {
             isDisabled={false}
             isFocusVisible={false}
             onPress={() => {
-              getGithubRepos();
+              getData();
             }}
           >
-            <ButtonText>Refresh Repos </ButtonText>
+            <ButtonText>Refresh Data </ButtonText>
             <ButtonIcon as={RepeatIcon} />
           </Button>
         </div>
@@ -240,25 +286,44 @@ export default function Home() {
           <div className={styles.tab}>
             <div className={styles.selected}>
               <p>Repositories</p>
-              <div className={styles.tabNumber}>{reposData.length}</div>
+              <div className={styles.tabNumber}>
+                {isSendingGetDataRequest ? (
+                  <Spinner size="small" />
+                ) : (
+                  reposData.length
+                )}
+              </div>
             </div>
           </div>
         </div>
         <div className={styles.mainContent}>
-          <div className={styles.mainContentLeft}>
-            <Image
-              src={imgAuthor}
-              width={296}
-              height={296}
-              className={styles.imgAuthor}
-              alt="Picture of the author"
-            />
-            <div className={styles.authorName}>
-              <p>Aymane Chaoui</p>
-            </div>
-            <div className={styles.authorUsername}>
-              <p>AymaneShadow</p>
-            </div>
+          <div
+            className={styles.mainContentLeft}
+            style={isSendingGetDataRequest ? { justifyContent: "center" } : {}}
+          >
+            {isSendingGetDataRequest ? (
+              <Spinner size="large" />
+            ) : (
+              <>
+                <Image
+                  size="2xl"
+                  borderRadius="$full"
+                  source={{
+                    uri: userData?.avatarUrl,
+                  }}
+                  className={styles.imgAuthor}
+                />
+                <div className={styles.authorName}>
+                  <p>{userData?.name}</p>
+                </div>
+                <div className={styles.authorUsername}>
+                  <p>{userData?.login}</p>
+                </div>
+                <div className={styles.authorBio}>
+                  <p>{userData?.bio}</p>
+                </div>
+              </>
+            )}
           </div>
           <div className={styles.mainContentRight}>
             <div className={styles.searchAndSort}>
@@ -280,7 +345,11 @@ export default function Home() {
                 }}
               >
                 <SelectTrigger variant="rounded" size="md">
-                  <SelectInput style={{ color: "white" }} placeholder="Sort" />
+                  <SelectInput
+                    style={{ color: "white" }}
+                    placeholder="Sort"
+                    value={sortBy}
+                  />
                   <SelectIcon mr="$3">
                     <Icon style={{ color: "white" }} as={ChevronDownIcon} />
                   </SelectIcon>
@@ -306,6 +375,7 @@ export default function Home() {
                   <SelectInput
                     style={{ color: "white" }}
                     placeholder="Language"
+                    value={sortLanguage}
                   />
                   <SelectIcon mr="$3">
                     <Icon style={{ color: "white" }} as={ChevronDownIcon} />
@@ -322,50 +392,86 @@ export default function Home() {
                         <SelectItem
                           key={index + "RepoLanguages"}
                           label={language}
-                          value={language.toLowerCase()}
+                          value={language}
                         />
                       );
                     })}
                   </SelectContent>
                 </SelectPortal>
               </Select>
+
+              {isEntityDataFiltered ? (
+                <Button
+                  size="md"
+                  variant="solid"
+                  action="primary"
+                  isDisabled={false}
+                  isFocusVisible={false}
+                  onPress={() => {
+                    setIsEntityDataFiltered(false);
+                    setSearchValue("");
+                    setSortLanguage("");
+                    setSortBy("");
+                  }}
+                >
+                  <ButtonText>Clear </ButtonText>
+                  <ButtonIcon as={CloseIcon} />
+                </Button>
+              ) : (
+                <></>
+              )}
             </div>
 
             <div className={styles.repos}>
-              {isSendingGetReposRequest ? (
+              {isSendingGetDataRequest ? (
                 <div className={styles.spinner}>
                   <Spinner size="large" />
                 </div>
-              ) : isSendingGetReposRequestSuccessful ? (
-                (isEntityDataFiltered ? entityDataFiltered : reposData).map(
-                  (repo: any, index: number) => {
-                    return (
-                      <div className={styles.repo} key={index + "Repo"}>
-                        <a href={repo.url} target="_blank">
-                          <p className={styles.repoTitle}>{repo.name}</p>
-                        </a>
+              ) : isSendingGetDataRequestSuccessful ? (
+                reposData.length > 0 ? (
+                  isEntityDataFiltered && entityDataFiltered.length === 0 ? (
+                    <div className={styles.repo}>
+                      <p>Your search did not match any repositories.</p>
+                    </div>
+                  ) : (
+                    (isEntityDataFiltered ? entityDataFiltered : reposData).map(
+                      (repo: any, index: number) => {
+                        return (
+                          <div className={styles.repo} key={index + "Repo"}>
+                            <a href={repo.url} target="_blank">
+                              <p className={styles.repoTitle}>{repo.name}</p>
+                            </a>
 
-                        {repo.description ? (
-                          <p className={styles.repoDescription}>
-                            {repo.description}
-                          </p>
-                        ) : null}
+                            {repo.description ? (
+                              <p className={styles.repoDescription}>
+                                {repo.description}
+                              </p>
+                            ) : null}
 
-                        <div className={styles.repoDetails}>
-                          <p className={styles.repoPrimaryLanguage}>
-                            {repo.primaryLanguage?.name ?? "None"}
-                          </p>
-                          <p className={styles.repoLastUpdated}>
-                            {"Updated on " + format_date(repo.updatedAt)}
-                          </p>
-                        </div>
-                      </div>
-                    );
-                  }
+                            <div className={styles.repoDetails}>
+                              <p className={styles.repoPrimaryLanguage}>
+                                {repo.primaryLanguage?.name ?? "None"}
+                              </p>
+                              <p className={styles.repoLastUpdated}>
+                                {"Updated on " + format_date(repo.updatedAt)}
+                              </p>
+                            </div>
+                          </div>
+                        );
+                      }
+                    )
+                  )
+                ) : (
+                  <div className={styles.repo}>
+                    <p>
+                      Username {usernameFromURL} was found but there are no
+                      public repos for this user.
+                    </p>
+                  </div>
                 )
               ) : (
                 <div className={styles.repo}>
-                  <p>There was an error fetching the repos.</p>
+                  <p>Couldn't find username {usernameFromURL}.</p>
                 </div>
               )}
             </div>
