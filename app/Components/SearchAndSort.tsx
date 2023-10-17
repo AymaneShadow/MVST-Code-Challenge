@@ -123,7 +123,7 @@ export const SearchAndSort = (props: Props) => {
             value={sortBy}
           />
           <SelectIcon mr="$3">
-            <Icon style={{ color: "white" }} as={ChevronDownIcon} />
+            <Icon as={ChevronDownIcon} color="white" />
           </SelectIcon>
         </SelectTrigger>
         <SelectPortal>
@@ -155,7 +155,7 @@ export const SearchAndSort = (props: Props) => {
             value={sortLanguage}
           />
           <SelectIcon mr="$3">
-            <Icon style={{ color: "white" }} as={ChevronDownIcon} />
+            <Icon as={ChevronDownIcon} color="white" />
           </SelectIcon>
         </SelectTrigger>
         <SelectPortal>

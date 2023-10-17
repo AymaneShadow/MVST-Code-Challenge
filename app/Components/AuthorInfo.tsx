@@ -14,11 +14,14 @@ export const AuthorInfo = (props: Props) => {
     <>
       <Image
         size="2xl"
-        borderRadius="$full"
         source={{
           uri: userData?.avatarUrl,
         }}
-        className={styles.imgAuthor}
+        style={{
+          borderRadius: 296,
+          borderWidth: 1,
+          borderColor: "#535150"
+        }}
       />
       <div className={styles.authorName}>
         <p>{userData?.name}</p>
