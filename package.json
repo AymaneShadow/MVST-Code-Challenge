@@ -1,12 +1,8 @@
 {
   "name": "next-app-router-app",
-  "description": "Next.js app router with gluestack-ui template",
+  "description": "Next.js app router",
   "version": "1.0.0",
   "private": true,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gluestack/nextjs-app-router.git"
-  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -17,9 +13,9 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@expo/html-elements": "latest",
-    "@gluestack-style/react": "latest",
-    "@gluestack-ui/themed": "latest",
-    "@gluestack/ui-next-adapter": "latest",
+    "@gluestack-style/react": "^1.0.6",
+    "@gluestack-ui/themed": "^1.0.5",
+    "@gluestack/ui-next-adapter": "^2.1.9",
     "@legendapp/motion": "latest",
     "@mui/icons-material": "^5.14.13",
     "@mui/material": "^5.14.13",

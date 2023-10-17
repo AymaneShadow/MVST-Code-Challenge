@@ -1,25 +1,4 @@
 "use client";
-import {
-  ButtonIcon,
-  ButtonText,
-  ChevronDownIcon,
-  CloseIcon,
-  Icon,
-  Input,
-  InputField,
-  InputIcon,
-  InputSlot,
-  SearchIcon,
-  SelectBackdrop,
-  SelectContent,
-  SelectDragIndicator,
-  SelectDragIndicatorWrapper,
-  SelectIcon,
-  SelectInput,
-  SelectItem,
-  SelectPortal,
-  SelectTrigger,
-} from "@gluestack-ui/themed";
 import { useState } from "react";
 import { search } from "../functions/search_functions";
 import { sortByLanguage, sortRepos } from "../functions/sort_functions";

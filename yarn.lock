@@ -1655,10 +1655,10 @@
   dependencies:
     tslib "^2.4.0"
 
-"@formatjs/icu-messageformat-parser@2.6.2":
-  version "2.6.2"
-  resolved "https://registry.npmjs.org/@formatjs/icu-messageformat-parser/-/icu-messageformat-parser-2.6.2.tgz"
-  integrity sha512-nF/Iww7sc5h+1MBCDRm68qpHTCG4xvGzYs/x9HFcDETSGScaJ1Fcadk5U/NXjXeCtzD+DhN4BAwKFVclHfKMdA==
+"@formatjs/icu-messageformat-parser@2.7.0":
+  version "2.7.0"
+  resolved "https://registry.npmjs.org/@formatjs/icu-messageformat-parser/-/icu-messageformat-parser-2.7.0.tgz"
+  integrity sha512-7uqC4C2RqOaBQtcjqXsSpGRYVn+ckjhNga5T/otFh6MgxRrCJQqvjfbrGLpX1Lcbxdm5WH3Z2WZqt1+Tm/cn/Q==
   dependencies:
     "@formatjs/ecma402-abstract" "1.17.2"
     "@formatjs/icu-skeleton-parser" "1.6.2"
@@ -1694,10 +1694,10 @@
   resolved "https://registry.npmjs.org/@gluestack-style/legend-motion-animation-driver/-/legend-motion-animation-driver-1.0.2.tgz"
   integrity sha512-rB5HIhVzpgPQ9C1JJvY30a1bP0sQRWWFgUHVaiefH8dA/XRAQpmAIMF48JDctrvoBi/tKp5xN10mLE5CtnDRHg==
 
-"@gluestack-style/react@>=0.2", "@gluestack-style/react@>=1.0", "@gluestack-style/react@latest":
-  version "1.0.5"
-  resolved "https://registry.npmjs.org/@gluestack-style/react/-/react-1.0.5.tgz"
-  integrity sha512-zVyt74Tn/uqzo/F9ctYIaYoyggG+oWDw2XfOBDcuCGTwkclvAcprYdXWPDkCvy4aBOfIRUkwlz1qaEgaD40G0w==
+"@gluestack-style/react@^1.0.6", "@gluestack-style/react@>=0.2", "@gluestack-style/react@>=1.0":
+  version "1.0.6"
+  resolved "https://registry.npmjs.org/@gluestack-style/react/-/react-1.0.6.tgz"
+  integrity sha512-NUQrfXoPEUNxOIOVIP2U1ZAY4V7lVHyJ0klLecpjQQlO2BEP8youK/jRH2VOTtYASGiNWLFAUXQ+xnmw1dsVCA==
   dependencies:
     inline-style-prefixer "^6.0.1"
     normalize-css-color "^1.0.2"
@@ -1999,7 +1999,7 @@
     "@gluestack-ui/utils" "^0.1.9"
     "@react-native-aria/focus" "^0.2.7"
 
-"@gluestack-ui/themed@>=0.1", "@gluestack-ui/themed@latest":
+"@gluestack-ui/themed@^1.0.5", "@gluestack-ui/themed@>=0.1":
   version "1.0.5"
   resolved "https://registry.npmjs.org/@gluestack-ui/themed/-/themed-1.0.5.tgz"
   integrity sha512-LDuh6HHWgrgyCFWZ3YaT9fFHy0do27xjDERLr4m5cztByZDK42Ws0ucCXlpeRaQO670a4dJ3DTFMp5lg2nhRVg==
@@ -2089,7 +2089,7 @@
   dependencies:
     "@gluestack-ui/utils" "^0.1.5"
 
-"@gluestack/ui-next-adapter@latest":
+"@gluestack/ui-next-adapter@^2.1.9":
   version "2.1.9"
   resolved "https://registry.npmjs.org/@gluestack/ui-next-adapter/-/ui-next-adapter-2.1.9.tgz"
   integrity sha512-DVy+TfFDOu9Sn+42fDloVDDrZVEXwLxkTctoSiTrbldLsdpF/3igmwJ6P+oiPjHql9ajcgTGRWfLK8DQxLERVg==
@@ -5149,7 +5149,7 @@ fs-extra@^11.1.0:
     jsonfile "^6.0.1"
     universalify "^2.0.0"
 
-fs-extra@^8.1.0:
+fs-extra@^8.1.0, fs-extra@~8.1.0:
   version "8.1.0"
   resolved "https://registry.npmjs.org/fs-extra/-/fs-extra-8.1.0.tgz"
   integrity sha512-yhlQgA6mnOJUKOsRUFsgJdQCvkKhcz8tlZG5HBQfReYZy46OwLcY+Zia0mtdHsOo9y/hP+CxMN0TU9QxoOtG4g==
@@ -5177,15 +5177,6 @@ fs-extra@^9.1.0:
     graceful-fs "^4.2.0"
     jsonfile "^6.0.1"
     universalify "^2.0.0"
-
-fs-extra@~8.1.0:
-  version "8.1.0"
-  resolved "https://registry.npmjs.org/fs-extra/-/fs-extra-8.1.0.tgz"
-  integrity sha512-yhlQgA6mnOJUKOsRUFsgJdQCvkKhcz8tlZG5HBQfReYZy46OwLcY+Zia0mtdHsOo9y/hP+CxMN0TU9QxoOtG4g==
-  dependencies:
-    graceful-fs "^4.2.0"
-    jsonfile "^4.0.0"
-    universalify "^0.1.0"
 
 fs-extra@9.0.0:
   version "9.0.0"
@@ -5520,13 +5511,13 @@ internal-ip@4.3.0:
     ipaddr.js "^1.9.0"
 
 intl-messageformat@^10.1.0:
-  version "10.5.3"
-  resolved "https://registry.npmjs.org/intl-messageformat/-/intl-messageformat-10.5.3.tgz"
-  integrity sha512-TzKn1uhJBMyuKTO4zUX47SU+d66fu1W9tVzIiZrQ6hBqQQeYscBMIzKL/qEXnFbJrH9uU5VV3+T5fWib4SIcKA==
+  version "10.5.4"
+  resolved "https://registry.npmjs.org/intl-messageformat/-/intl-messageformat-10.5.4.tgz"
+  integrity sha512-z+hrFdiJ/heRYlzegrdFYqU1m/KOMOVMqNilIArj+PbsuU8TNE7v4TWdQgSoxlxbT4AcZH3Op3/Fu15QTp+W1w==
   dependencies:
     "@formatjs/ecma402-abstract" "1.17.2"
     "@formatjs/fast-memoize" "2.2.0"
-    "@formatjs/icu-messageformat-parser" "2.6.2"
+    "@formatjs/icu-messageformat-parser" "2.7.0"
     tslib "^2.4.0"
 
 invariant@*, invariant@^2.2.4:

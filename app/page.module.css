@@ -281,6 +281,7 @@
 .spinner {
   display: inherit;
   justify-content: center;
+  align-items: center;
   /* background-color: deeppink; */
   /* min-height: 80vh; */
   flex: 1;

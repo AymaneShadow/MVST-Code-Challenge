@@ -1,6 +1,6 @@
 "use client";
-import { Spinner } from "@gluestack-ui/themed";
 import styles from "../page.module.css";
+import CircularProgress from '@mui/material/CircularProgress';
 
 type Props = {
   reposData: any[];
@@ -18,7 +18,7 @@ export const Tabs = (props: Props) => {
           <p>Repositories</p>
           <div className={styles.tabNumber}>
             {isSendingGetDataRequest ? (
-              <Spinner size="small" />
+              <CircularProgress size="1rem" />
             ) : (
               reposData.length
             )}

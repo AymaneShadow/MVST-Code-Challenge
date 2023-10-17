@@ -1,16 +1,4 @@
 "use client";
-import {
-  ButtonIcon,
-  ButtonText,
-  CheckIcon,
-  EditIcon,
-  Input,
-  InputField,
-  InputIcon,
-  InputSlot,
-  Pressable,
-  RepeatIcon,
-} from "@gluestack-ui/themed";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { getData } from "../functions/backend_functions";
@@ -106,14 +94,13 @@ export const Header = (props: Props) => {
           </Button>
         </div>
       ) : (
-        <div className={styles.tag}>
-          <Pressable
-            onPress={() => {
-              setIsUsernameBeingEdited(true);
-            }}
-          >
-            <p>{usernameFromURL}</p>
-          </Pressable>
+        <div 
+          className={styles.tag}
+          onClick={() => {
+            setIsUsernameBeingEdited(true);
+          }}
+        >
+          <p>{usernameFromURL}</p>
         </div>
       )}
       <Button 

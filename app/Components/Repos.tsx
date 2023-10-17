@@ -1,8 +1,8 @@
 "use client";
-import { Spinner } from "@gluestack-ui/themed";
 import { useSearchParams } from "next/navigation";
 import { format_date } from "../functions/utils_functions";
 import styles from "../page.module.css";
+import CircularProgress from "@mui/material/CircularProgress";
 
 type Props = {
   isSendingGetDataRequest: any;
@@ -30,7 +30,7 @@ export const Repos = (props: Props) => {
     <div className={styles.repos}>
       {isSendingGetDataRequest ? (
         <div className={styles.spinner}>
-          <Spinner size="large" />
+          <CircularProgress />
         </div>
       ) : isSendingGetDataRequestSuccessful ? (
         reposData.length > 0 ? (

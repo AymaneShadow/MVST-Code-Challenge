@@ -1,6 +1,4 @@
 "use client";
-import { config } from "@gluestack-ui/config";
-import { GluestackUIProvider, Spinner } from "@gluestack-ui/themed";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AuthorInfo } from "./Components/AuthorInfo";
@@ -10,6 +8,7 @@ import { SearchAndSort } from "./Components/SearchAndSort";
 import { Tabs } from "./Components/Tabs";
 import { getData } from "./functions/backend_functions";
 import styles from "./page.module.css";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Home() {
   // URL Params
@@ -83,7 +82,6 @@ export default function Home() {
   }, []);
 
   return (
-    <GluestackUIProvider config={config}>
       <main className={styles.main}>
         <Header
           setUserData={setUserData}
@@ -103,7 +101,7 @@ export default function Home() {
             style={isSendingGetDataRequest ? { justifyContent: "center" } : {}}
           >
             {isSendingGetDataRequest ? (
-              <Spinner size="large" />
+              <CircularProgress />
             ) : (
               <AuthorInfo userData={userData} />
             )}
@@ -129,6 +127,5 @@ export default function Home() {
           </div>
         </div>
       </main>
-    </GluestackUIProvider>
   );
 }
