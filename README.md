@@ -1,6 +1,6 @@
 ## Short Description
 
-This project is about displaying the basic info and public repositories of a Github account and allowing the user to filter through the repositories by name or language using a search bar, or name or last update time using the provided sort options.
+This project is about displaying the basic info and public repositories of a Github account and allowing the user to filter through the repositories by name or language using a search bar, or name, last update time or language using the provided sort options.
 
 ## Instructions on how to run it
 
@@ -16,23 +16,31 @@ git clone https://github.com/AymaneShadow/MVST-Code-Challenge.git
 npm install
 ```
 
-2 - Run the project using the following command in the root directory:
+3 - To ue the GraphQL API you must generate a personal access token in Github. Link on how to do it: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-authentication-to-github#authenticating-to-the-api-with-a-personal-access-token
+
+4 - Create a file named .env.local at the root of your directory and copy / past the following into it:
+
+```bash
+NEXT_PUBLIC_GRAPHQL_API_PERSONAL_ACCESS_TOKEN='<YOUR_PERSONAL_ACCESS_TOKEN>'
+```
+
+5 - Replace <YOUR_PERSONAL_ACCESS_TOKEN> by the personal access token your generated in the 3rd step.
+
+6 - Run the project using the following command in the root directory:
 
 ```bash
 npm run dev
 ```
 
-3 - Visit the following address in your browser:
+7 - Visit the following address in your browser:
 
 ```bash
-http://localhost:3000/?username=AymaneShadow
+http://localhost:3000
 ```
 
-Note: Make sure the parameter username exists in the url.
+8 - If you want to change which account the info is displayed from just change the variable username in the url or tap on the username on the top left corner of the page.
 
-4 - If you want to change which account the info is displayed from just change the variable username in the url or tap on the username on the top left corner of the page.
-
-5 - Sort through the repositories either by using the search bar or the provided sort options.
+9 - Sort through the repositories either by using the search bar or the provided sort options.
 
 ## Future improvements
 
