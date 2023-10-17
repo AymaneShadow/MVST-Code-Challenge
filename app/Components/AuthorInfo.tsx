@@ -13,7 +13,7 @@ export const AuthorInfo = (props: Props) => {
     <>
      <img 
         src={userData?.avatarUrl}
-        alt="new"
+        alt="Author Avatar"
         width={296}
         height={296}
         className={styles.imgAuthor}
