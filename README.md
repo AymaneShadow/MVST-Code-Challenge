@@ -22,7 +22,7 @@ git clone https://github.com/AymaneShadow/MVST-Code-Challenge.git
 npm install
 ```
 
-3 - To ue the GraphQL API you must generate a personal access token in Github. Link on how to do it: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-authentication-to-github#authenticating-to-the-api-with-a-personal-access-token
+3 - To use the GraphQL API you must generate a personal access token in Github. Link on how to do it: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-authentication-to-github#authenticating-to-the-api-with-a-personal-access-token
 
 4 - Create a file named .env.local at the root of your directory and copy / past the following into it:
 
