@@ -1,7 +1,7 @@
 "use client";
 import { config } from "@gluestack-ui/config";
 import { GluestackUIProvider, Spinner } from "@gluestack-ui/themed";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AuthorInfo } from "./Components/AuthorInfo";
 import { Header } from "./Components/Header";
@@ -13,6 +13,7 @@ import styles from "./page.module.css";
 
 export default function Home() {
   // URL Params
+  const router = useRouter();
   const urlParams = useSearchParams();
   const usernameFromURL = urlParams.get("username");
 
@@ -61,8 +62,19 @@ export default function Home() {
 
   // Called when the page is loaded
   useEffect(() => {
+
+    let tempUsername = usernameFromURL;
+
+    // If user forgets to have username in the url
+    // it will automtically be added for them.
+    if(!usernameFromURL)
+    {
+      router.replace("?username=" + "AymaneShadow");
+      tempUsername = "AymaneShadow";
+    }
+
     getData(
-      usernameFromURL,
+      tempUsername,
       startGetData,
       performGetDataSuccess,
       performGetDataFailure,

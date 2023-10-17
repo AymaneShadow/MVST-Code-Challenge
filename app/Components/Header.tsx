@@ -69,7 +69,7 @@ export const Header = (props: Props) => {
             </InputSlot>
             <InputField
               style={{ color: "white" }}
-              placeholder={usernameFromURL}
+              placeholder={usernameFromURL ?? ''}
               value={username}
               onChange={(e: any) => editUsername(e.target.value)}
             />

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Header required to connect to GitHub GraphQL
-const authHeader = "bearer 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";
+const authHeader = "bearer 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";
 
 // Function to get data from GitHub GraphQL
 // Optimized to fetch all data needed in one request
