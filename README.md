@@ -2,6 +2,12 @@
 
 This project is about displaying the basic info and public repositories of a Github account and allowing the user to filter through the repositories by name or language using a search bar, or name, last update time or language using the provided sort options.
 
+## Deployment URL
+
+You can find the fully working challenge under this url:
+
+https://mvst-code-challenge-rd7jtljea-aymanes-projects-63a39b54.vercel.app/?username=AymaneShadow
+
 ## Instructions on how to run it
 
 1 - Clone this repo to your desired destination.
