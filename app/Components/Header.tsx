@@ -1,6 +1,5 @@
 "use client";
 import {
-  Button,
   ButtonIcon,
   ButtonText,
   CheckIcon,
@@ -16,6 +15,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { getData } from "../functions/backend_functions";
 import styles from "../page.module.css";
+import { Check, Refresh } from "@mui/icons-material";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 type Props = {
   setUserData: React.Dispatch<React.SetStateAction<any>>;
@@ -63,24 +65,31 @@ export const Header = (props: Props) => {
     <div className={styles.header}>
       {isUsernameBeingEdited ? (
         <div className={styles.editUsername}>
-          <Input>
-            <InputSlot pl="$3">
-              <InputIcon as={EditIcon} />
-            </InputSlot>
-            <InputField
-              style={{ color: "white" }}
-              placeholder={usernameFromURL ?? ''}
-              value={username}
-              onChange={(e: any) => editUsername(e.target.value)}
-            />
-          </Input>
-          <Button
-            size="md"
-            variant="solid"
-            action="primary"
-            isDisabled={false}
-            isFocusVisible={false}
-            onPress={() => {
+
+          <TextField
+            label={'Username'}
+            variant="outlined"
+            size="small"
+            value={username}
+            onChange={(e: any) =>
+              editUsername(e.target.value)
+            }
+            sx={{ 
+              input: { color: 'white' }, 
+              '& .MuiSvgIcon-root': {color: 'white'},
+              "& .MuiOutlinedInput-notchedOutline": {
+                "border-color": "white !important",
+                "border-width": "1px !important",
+              }
+            }}
+            InputLabelProps={{
+              style: { color: 'white' },
+            }}
+          />
+
+          <Button 
+            variant="contained"
+            onClick={() => {
               setIsUsernameBeingEdited(false);
               setUserData({});
               setReposData([]);
@@ -92,9 +101,8 @@ export const Header = (props: Props) => {
                 endGetData
               );
             }}
-          >
-            <ButtonText>Done </ButtonText>
-            <ButtonIcon as={CheckIcon} />
+            endIcon={<Check />}
+          >Done
           </Button>
         </div>
       ) : (
@@ -108,13 +116,9 @@ export const Header = (props: Props) => {
           </Pressable>
         </div>
       )}
-      <Button
-        size="md"
-        variant="solid"
-        action="primary"
-        isDisabled={false}
-        isFocusVisible={false}
-        onPress={() => {
+      <Button 
+        variant="contained"
+        onClick={() => {
           getData(
             usernameFromURL,
             startGetData,
@@ -123,9 +127,8 @@ export const Header = (props: Props) => {
             endGetData
           );
         }}
-      >
-        <ButtonText>Refresh Data </ButtonText>
-        <ButtonIcon as={RepeatIcon} />
+        endIcon={<Refresh />}
+      >Refresh Data
       </Button>
     </div>
   );

@@ -1,6 +1,6 @@
 "use client";
-import { Image } from "@gluestack-ui/themed";
 import styles from "../page.module.css";
+import {Image} from 'react-native';
 
 type Props = {
   userData: any;
@@ -13,14 +13,15 @@ export const AuthorInfo = (props: Props) => {
   return (
     <>
       <Image
-        size="2xl"
-        source={{
-          uri: userData?.avatarUrl,
-        }}
         style={{
           borderRadius: 296,
           borderWidth: 1,
-          borderColor: "#535150"
+          borderColor: "#535150",
+          width: 296,
+          height: 296,
+        }}
+        source={{
+          uri: userData?.avatarUrl,
         }}
       />
       <div className={styles.authorName}>

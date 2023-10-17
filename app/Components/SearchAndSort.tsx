@@ -1,6 +1,5 @@
 "use client";
 import {
-  Button,
   ButtonIcon,
   ButtonText,
   ChevronDownIcon,
@@ -11,7 +10,6 @@ import {
   InputIcon,
   InputSlot,
   SearchIcon,
-  Select,
   SelectBackdrop,
   SelectContent,
   SelectDragIndicator,
@@ -26,6 +24,12 @@ import { useState } from "react";
 import { search } from "../functions/search_functions";
 import { sortByLanguage, sortRepos } from "../functions/sort_functions";
 import styles from "../page.module.css";
+import Button from '@mui/material/Button'
+import TextField from "@mui/material/TextField";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import { createMuiTheme } from "@mui/material/styles";
+import { HighlightOff } from "@mui/icons-material";
 
 type Props = {
   reposData: any;
@@ -97,102 +101,103 @@ export const SearchAndSort = (props: Props) => {
 
   return (
     <div className={styles.searchAndSort}>
-      <Input>
-        <InputSlot pl="$3">
-          <InputIcon as={SearchIcon} />
-        </InputSlot>
-        <InputField
-          style={{ color: "white" }}
-          placeholder="Find a repository..."
-          value={searchValue}
-          onChange={(e: any) =>
-            search(e.target.value, reposData, startSearch, endSearch)
-          }
-        />
-      </Input>
 
-      <Select
-        onValueChange={(value) => {
-          sortRepos(value, reposData, startSortRepos, endSortRepos);
+      <TextField
+        label="Find a repository..."
+        variant="outlined"
+        size="small"
+        value={searchValue}
+        onChange={(e: any) =>
+          search(e.target.value, reposData, startSearch, endSearch)
+        }
+        sx={{ 
+          input: { color: 'white' }, 
+          '& .MuiSvgIcon-root': {color: 'white'},
+          "& .MuiOutlinedInput-notchedOutline": {
+            "border-color": "white !important",
+            "border-width": "1px !important",
+          }
+        }}
+        InputLabelProps={{
+          style: { color: 'white' },
+        }}
+      />
+
+      <TextField
+        select
+        value={sortBy.toLowerCase()}
+        label="Sort"
+        // defaultValue="EUR"
+        sx={{ 
+          input: { color: 'white' }, 
+          width: 150, 
+          '& .MuiSvgIcon-root': {color: 'white'},
+          "& .MuiOutlinedInput-notchedOutline": {
+            "border-color": "white !important",
+            "border-width": "1px !important",
+          },
+          '& .MuiOutlinedInput-input': {
+            color: 'white',
+          },
+        }}
+        InputLabelProps={{
+          style: { color: 'white' },
+        }}
+        onChange={(value) => {
+          sortRepos(value.target.value, reposData, startSortRepos, endSortRepos);
         }}
       >
-        <SelectTrigger variant="rounded" size="md">
-          <SelectInput
-            style={{ color: "white" }}
-            placeholder="Sort"
-            value={sortBy}
-          />
-          <SelectIcon mr="$3">
-            <Icon as={ChevronDownIcon} color="white" />
-          </SelectIcon>
-        </SelectTrigger>
-        <SelectPortal>
-          <SelectBackdrop />
-          <SelectContent>
-            <SelectDragIndicatorWrapper>
-              <SelectDragIndicator />
-            </SelectDragIndicatorWrapper>
-            <SelectItem label="Name" value="name" />
-            <SelectItem label="Last Updated" value="updated" />
-          </SelectContent>
-        </SelectPortal>
-      </Select>
+        <MenuItem value={'name'}>Name</MenuItem>
+        <MenuItem value={'updated'}>Last Updated</MenuItem>
+      </TextField>
 
-      <Select
-        onValueChange={(value) => {
+      <TextField
+        select
+        value={sortLanguage}
+        label="Language"
+        // defaultValue="EUR"
+        sx={{ 
+          input: { color: 'white' }, 
+          width: 150, 
+          '& .MuiSvgIcon-root': {color: 'white'},
+          "& .MuiOutlinedInput-notchedOutline": {
+            "border-color": "white !important",
+            "border-width": "1px !important",
+          },
+          '& .MuiOutlinedInput-input': {
+            color: 'white',
+          },
+        }}
+        InputLabelProps={{
+          style: { color: 'white' },
+        }}
+        onChange={(value) => {
           sortByLanguage(
-            value,
+            value.target.value,
             reposData,
             startSortByLanguage,
             endSortByLanguage
           );
         }}
       >
-        <SelectTrigger variant="rounded" size="md">
-          <SelectInput
-            style={{ color: "white" }}
-            placeholder="Language"
-            value={sortLanguage}
-          />
-          <SelectIcon mr="$3">
-            <Icon as={ChevronDownIcon} color="white" />
-          </SelectIcon>
-        </SelectTrigger>
-        <SelectPortal>
-          <SelectBackdrop />
-          <SelectContent>
-            <SelectDragIndicatorWrapper>
-              <SelectDragIndicator />
-            </SelectDragIndicatorWrapper>
-            {reposLanguages.map((language: string, index: number) => {
-              return (
-                <SelectItem
-                  key={index + "RepoLanguages"}
-                  label={language}
-                  value={language}
-                />
-              );
-            })}
-          </SelectContent>
-        </SelectPortal>
-      </Select>
+        {reposLanguages.map((language: string, index: number) => {
+          return (
+            <MenuItem key={index + "RepoLanguages"} value={language}>{language}</MenuItem>
+          );
+        })}
+      </TextField>
 
       {isRepoDataFiltered ? (
-        <Button
-          size="md"
-          variant="solid"
-          action="primary"
-          isDisabled={false}
-          isFocusVisible={false}
-          onPress={() => {
+        <Button 
+          variant="contained"
+          onClick={() => {
             setIsRepoDataFiltered(false);
             setSearchRepoNameValue("");
             setSortLanguage("");
             setSortBy("");
           }}
-        >
-          <ButtonText>Clear </ButtonText>
-          <ButtonIcon as={CloseIcon} />
+          endIcon={<HighlightOff />}
+        >Clear
         </Button>
       ) : (
         <></>
